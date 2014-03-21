@@ -105,6 +105,7 @@ public class SlideCutListView extends ListView {
 
                 if (slidePosition == AdapterView.INVALID_POSITION
                         || slidePosition == 0) {//with header
+                    isSlide = false ;
                     return super.dispatchTouchEvent(event);
                 }
 
@@ -127,6 +128,15 @@ public class SlideCutListView extends ListView {
 
         return super.dispatchTouchEvent(event);
     }
+
+     @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        if(isSlide){
+            return true;
+        }else {
+            return super.onInterceptTouchEvent(ev);
+        }
+    }   
 
     /**
      *scrollRight
