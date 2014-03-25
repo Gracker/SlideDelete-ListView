@@ -224,7 +224,6 @@ public class SlideCutListView extends ListView {
                     throw new NullPointerException("RemoveListener is null, we should called setRemoveListener()");
                 }
 
-                itemView.scrollTo(0, 0);
                 mRemoveListener.removeItem(removeDirection, slidePosition);
             }
         }
