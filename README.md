@@ -1,4 +1,4 @@
-SlideDelete-ListView
+Android:SlideDelete-ListView
 ====================
 
 这是基于Android的一个项目,这个ListView提供左右滑动来删除Item的功能. 
