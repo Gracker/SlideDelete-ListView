@@ -1,3 +1,5 @@
+package com.performance.slidedeletelistview;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -9,7 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Scroller;
 
-public class SlideCutListView extends ListView {
+public class SlideDeleteListView extends ListView {
     /**
      * ListView position
      */
@@ -58,19 +60,19 @@ public class SlideCutListView extends ListView {
 
     // direction
     public enum RemoveDirection {
-        RIGHT, LEFT;
+        RIGHT, LEFT
     }
 
 
-    public SlideCutListView(Context context) {
+    public SlideDeleteListView(Context context) {
         this(context, null);
     }
 
-    public SlideCutListView(Context context, AttributeSet attrs) {
+    public SlideDeleteListView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public SlideCutListView(Context context, AttributeSet attrs, int defStyle) {
+    public SlideDeleteListView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         screenWidth = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getWidth();
         scroller = new Scroller(context);
@@ -225,6 +227,7 @@ public class SlideCutListView extends ListView {
                 }
 
                 mRemoveListener.removeItem(removeDirection, slidePosition);
+                itemView.scrollTo(0, scroller.getCurrY());
             }
         }
     }
@@ -266,10 +269,10 @@ public class SlideCutListView extends ListView {
     /**
      * remove the listener
      *
-     * @author xiaanming
+     * @author Gracker
      */
     public interface RemoveListener {
-        public void removeItem(RemoveDirection direction, int position);
+        void removeItem(RemoveDirection direction, int position);
     }
 
 }

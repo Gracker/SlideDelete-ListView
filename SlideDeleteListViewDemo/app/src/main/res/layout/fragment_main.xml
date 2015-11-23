@@ -2,16 +2,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:showIn="@layout/activity_main"
-    tools:context="com.performance.slidedeletelistviewdemo.MainActivityFragment">
+    tools:context="com.performance.slidedeletelistviewdemo.MainActivityFragment"
+    tools:showIn="@layout/activity_main">
 
     <TextView
-        android:text="Hello World!"
+        android:id="@+id/fragment_main_tip_text"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/tip"
+        android:textSize="16sp" />
+
+    <com.performance.slidedeletelistview.SlideDeleteListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fragment_main_tip_text"
+        android:layout_marginTop="12dp" />
 
 </RelativeLayout>
