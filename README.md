@@ -7,7 +7,7 @@ This is a special ListView that you can slide to delete it's item .
 
 #Usage
 1. add SlideDeleteListView in your layout file
-```
+```xml
 	<yourpackagename.SlideDeleteListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -16,15 +16,15 @@ This is a special ListView that you can slide to delete it's item .
 ```
 
 2. add dependencies in build.gradle
-```
-compile project(':slidedeletelistview')
+```java
+	compile project(':slidedeletelistview')
 ```
 
 3. setup SlideDeleteListView in your java code 
 + set Adapter
 + set RemoveListener
-```
-mSlideDeleteListView.setRemoveListener(new SlideDeleteListView.RemoveListener() {
+```java
+	mSlideDeleteListView.setRemoveListener(new SlideDeleteListView.RemoveListener() {
             @Override
             public void removeItem(SlideDeleteListView.RemoveDirection direction, int position) {
                 Toast.makeText(getContext(), "Item " + position + " has deleted",
@@ -35,9 +35,9 @@ mSlideDeleteListView.setRemoveListener(new SlideDeleteListView.RemoveListener() 
             }
         });
         
-public void updateDataSet(int position) {
-    Log.i("Gracker","update position =" + position);
-    arrayList.remove(position);
-    notifyDataSetChanged();
+	public void updateDataSet(int position) {
+    		Log.i("Gracker","update position =" + position);
+		arrayList.remove(position);
+		notifyDataSetChanged();
 }
 ```
