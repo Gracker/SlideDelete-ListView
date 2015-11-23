@@ -227,6 +227,8 @@ public class SlideDeleteListView extends ListView {
                 }
 
                 mRemoveListener.removeItem(removeDirection, slidePosition);
+
+                //reset the item position
                 itemView.scrollTo(0, scroller.getCurrY());
             }
         }
