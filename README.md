@@ -6,7 +6,7 @@ This is a special ListView that you can slide to delete it's item .
 ***
 
 #Usage
-1. add SlideDeleteListView in your layout file
+1.add SlideDeleteListView in your layout file
 ```xml
 	<yourpackagename.SlideDeleteListView
             android:layout_width="wrap_content"
@@ -14,13 +14,12 @@ This is a special ListView that you can slide to delete it's item .
             android:id="@+id/listView"
             android:layout_gravity="left|top" />
 ```
-
-2. add dependencies in build.gradle
+2.add dependencies in build.gradle
 ```java
 	compile project(':slidedeletelistview')
 ```
 
-3. setup SlideDeleteListView in your java code 
+3.setup SlideDeleteListView in your java code 
 + set Adapter
 + set RemoveListener
 ```java
