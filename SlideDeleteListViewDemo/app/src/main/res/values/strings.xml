@@ -2,4 +2,6 @@
     <string name="app_name">SlideDeleteListViewDemo</string>
     <string name="action_settings">Settings</string>
     <string name="tip">This is a ListView Demo , swap to delete item</string>
+    <string name="list_header">This is a header</string>
+    <string name="list_footer">This is a footer</string>
 </resources>

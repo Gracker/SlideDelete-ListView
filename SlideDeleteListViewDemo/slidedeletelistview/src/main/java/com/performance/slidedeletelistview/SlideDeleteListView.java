@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.Scroller;
 
 public class SlideDeleteListView extends ListView {
+    private static final int SNAP_VELOCITY = 600;
     /**
      * ListView position
      */
@@ -36,7 +37,6 @@ public class SlideDeleteListView extends ListView {
      * Scroller
      */
     private Scroller scroller;
-    private static final int SNAP_VELOCITY = 600;
     /**
      * VelocityTracker
      */
@@ -57,16 +57,12 @@ public class SlideDeleteListView extends ListView {
      * RemoveDirection
      */
     private RemoveDirection removeDirection;
-
-    // direction
-    public enum RemoveDirection {
-        RIGHT, LEFT
-    }
-
+    private int mTotalItemCount;
 
     public SlideDeleteListView(Context context) {
         this(context, null);
     }
+
 
     public SlideDeleteListView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -77,6 +73,7 @@ public class SlideDeleteListView extends ListView {
         screenWidth = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getWidth();
         scroller = new Scroller(context);
         mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
+        mTotalItemCount = getHeaderViewsCount() + getCount() + getFooterViewsCount();
     }
 
     /**
@@ -106,13 +103,13 @@ public class SlideDeleteListView extends ListView {
                 slidePosition = pointToPosition(downX, downY);
 
                 if (slidePosition == AdapterView.INVALID_POSITION
-                        || slidePosition == 0) {//with header
-                    isSlide = false ;
+                        || isHeaderOfFoot(slidePosition)) {//with header or footer
+                    isSlide = false;
                     return super.dispatchTouchEvent(event);
                 }
 
                 // get touch item view
-                itemView = getChildAt(slidePosition  - getFirstVisiblePosition());
+                itemView = getChildAt(slidePosition - getFirstVisiblePosition());
                 break;
             }
             case MotionEvent.ACTION_MOVE: {
@@ -131,17 +128,13 @@ public class SlideDeleteListView extends ListView {
         return super.dispatchTouchEvent(event);
     }
 
-     @Override
+    @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        if(isSlide){
-            return true;
-        }else {
-            return super.onInterceptTouchEvent(ev);
-        }
-    }   
+        return isSlide || super.onInterceptTouchEvent(ev);
+    }
 
     /**
-     *scrollRight
+     * scrollRight
      */
     private void scrollRight() {
         removeDirection = RemoveDirection.RIGHT;
@@ -181,8 +174,8 @@ public class SlideDeleteListView extends ListView {
      */
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        if (isSlide && ((slidePosition != AdapterView.INVALID_POSITION
-                && slidePosition != 0))){
+        if (isSlide && slidePosition != AdapterView.INVALID_POSITION
+                && !isHeaderOfFoot(slidePosition)) {
             addVelocityTracker(ev);
             final int action = ev.getAction();
             int x = (int) ev.getX();
@@ -235,7 +228,7 @@ public class SlideDeleteListView extends ListView {
     }
 
     /**
-     *add VelocityTracker
+     * add VelocityTracker
      *
      * @param event
      */
@@ -266,6 +259,34 @@ public class SlideDeleteListView extends ListView {
         velocityTracker.computeCurrentVelocity(1000);
         int velocity = (int) velocityTracker.getXVelocity();
         return velocity;
+    }
+
+    private boolean isHeaderOfFoot(int itemPosition) {
+        int headerCount = getHeaderViewsCount();
+        int footerCount = getFooterViewsCount();
+
+        if (headerCount == 0 && footerCount == 0) {
+            return false;
+        }
+
+        if (headerCount != 0) {
+            if (itemPosition + 1 <= headerCount) {
+                return true;
+            }
+        }
+
+        if (footerCount != 0) {
+            if (itemPosition + 1 - headerCount - getCount() > footerCount) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    // direction
+    public enum RemoveDirection {
+        RIGHT, LEFT
     }
 
     /**

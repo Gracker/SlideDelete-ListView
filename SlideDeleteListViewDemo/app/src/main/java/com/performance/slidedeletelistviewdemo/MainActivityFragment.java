@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * A placeholder fragment containing a simple view.
  */
 public class MainActivityFragment extends Fragment {
-    public static int ITEM_COUNT = 200;
+    public static int ITEM_COUNT = 10;
 
     private SlideDeleteListView listView;
     private ListAdapter mListAdapter;
@@ -43,9 +43,13 @@ public class MainActivityFragment extends Fragment {
             public void removeItem(SlideDeleteListView.RemoveDirection direction, int position) {
                 Toast.makeText(getContext(), "Item " + position + " has deleted",
                         Toast.LENGTH_SHORT).show();
-                mListAdapter.updateDataSet(position);
+                mListAdapter.updateDataSet(position - listView.getHeaderViewsCount());
             }
         });
+        listView.addFooterView(inflater.inflate(R.layout.footer_layout, container));
+        listView.addHeaderView(inflater.inflate(R.layout.header_layout, container));
+        listView.addHeaderView(inflater.inflate(R.layout.header_layout, container));
+
         return viewRoot;
     }
 }
