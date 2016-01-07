@@ -61,7 +61,7 @@ public class ListAdapter extends BaseAdapter {
     }
 
     public void updateDataSet(int position) {
-        Log.i("Gracker","update position =" + position);
+        Log.i("Gracker", "update position =" + position);
         arrayList.remove(position);
         notifyDataSetChanged();
     }
